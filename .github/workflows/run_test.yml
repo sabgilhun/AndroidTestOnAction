@@ -1,0 +1,16 @@
+name: AndroidTest
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: androidsdk/android-30:latest
+
+    steps:
+      - name: Checkout reopsitory
+        uses: actions/checkout@v2
+        
+      - name: Assemble apk
+        run: emulator -list-avds
