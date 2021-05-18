@@ -12,5 +12,9 @@ jobs:
       - name: Checkout reopsitory
         uses: actions/checkout@v2
         
-      - name: Assemble apk
+      - name: help
+        run: emulator -help
+      
+      - name: list
         run: emulator -list-avds
+
