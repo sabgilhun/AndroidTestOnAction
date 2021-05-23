@@ -21,13 +21,27 @@ jobs:
         api-level: ${{ matrix.api-level }}
         target: default
         script: ./gradlew connectedDebugAndroidTest
+        
+    - name: artifacts report
+      uses: actions/upload-artifact@v2
+      with:
+        name: reports
+        path: app/build/reports/
 
   merge:
     runs-on: macos-latest
     needs: "test"
     
     steps:
-      - name: merge report
-        run: ls -R app/build | grep report
+    - name: checkout
+      uses: actions/checkout@v2
+      
+    - name: download artifact
+      uses: actions/download-artifact@v2    
+      with:
+        name: reports
+      
+    - name: check result
+      run: ls -R app/build/reports/
 
 
