@@ -9,7 +9,7 @@ jobs:
     
     strategy:
       matrix:
-        api-level: [23, 24, 25, 26, 27, 28, 29]
+        api-level: [29]
         
     steps:
     - name: checkout
@@ -35,9 +35,12 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v2
+    
+    - name: check result
+      run: ls -R
       
     - name: download artifact
-      uses: actions/download-artifact@v2    
+      uses: actions/download-artifact@v2
       with:
         name: reports
       
