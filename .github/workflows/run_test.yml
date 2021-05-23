@@ -21,6 +21,13 @@ jobs:
         api-level: ${{ matrix.api-level }}
         target: default
         script: ./gradlew connectedDebugAndroidTest
-        
-    - name: check result
-      run: ls -R app/build
+
+  merge:
+    runs-on: macos-latest
+    needs: "test"
+    
+    steps:
+      - name: merge report
+        run: ls -R app/build | grep report
+
+
