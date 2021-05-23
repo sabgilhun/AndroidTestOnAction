@@ -42,6 +42,6 @@ jobs:
         name: reports
       
     - name: check result
-      run: ls -R app/build/reports/
+      run: ls -R
 
 
