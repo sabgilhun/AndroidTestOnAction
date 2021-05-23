@@ -12,9 +12,9 @@ jobs:
       - name: Checkout reopsitory
         uses: actions/checkout@v2
         
-      - name: help
-        run: emulator -help
-      
-      - name: list
-        run: emulator -list-avds
+      - name: check
+        run: |
+          apt-get install cpu-checker
+          egrep -c '(vmx|svm)' /proc/cpuinfo
+          kvm-ok
 
