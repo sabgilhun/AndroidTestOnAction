@@ -7,6 +7,8 @@ jobs:
   test:
     runs-on: macos-latest
     
+    timeout-minutes: 30
+    
     strategy:
       matrix:
         api-level: [23, 24, 25, 26, 27, 28, 29]
@@ -23,26 +25,21 @@ jobs:
         script: ./gradlew connectedDebugAndroidTest
         
     - name: artifacts report
+      if: ${{ matrix.api-level == 29 }}
       uses: actions/upload-artifact@v2
       with:
-        name: reports_${{ matrix.api-level }}
+        name: reports
         path: app/build/reports/
 
   merge:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     needs: "test"
     
     steps:
-    - name: checkout
-      uses: actions/checkout@v2
-    
-    - name: check result
-      run: ls -R
-      
     - name: download artifact
       uses: actions/download-artifact@v2
       with:
-        name: reports_29
+        name: reports
       
     - name: check result
       run: ls -R
