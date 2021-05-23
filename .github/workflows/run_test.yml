@@ -25,7 +25,7 @@ jobs:
     - name: artifacts report
       uses: actions/upload-artifact@v2
       with:
-        name: format('reports_{0}', ${{ matrix.api-level }})
+        name: reports_${{ matrix.api-level }}
         path: app/build/reports/
 
   merge:
