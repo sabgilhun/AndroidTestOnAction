@@ -15,6 +15,6 @@ jobs:
       - name: check
         run: |
           apt-get -y install cpu-checker
-          egrep -c '(vmx|svm)' /proc/cpuinfo
+          egrep -c '(vmx|svm)' /proc/cpuinfo | true
           kvm-ok
 
