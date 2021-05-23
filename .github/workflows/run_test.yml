@@ -4,17 +4,19 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    container: androidsdk/android-30:latest
-
-    steps:
-      - name: Checkout reopsitory
-        uses: actions/checkout@v2
-        
-      - name: check
-        run: |
-          apt-get -y install cpu-checker
-          egrep -c '(vmx|svm)' /proc/cpuinfo | true
-          kvm-ok
-
+    instrumentation-tests:
+        name: Instrumentation tests
+        runs-on: macOS-latest
+        timeout-minutes: 60
+        strategy:
+            fail-fast: true
+            matrix:
+                api-level: [29, 30]
+        steps:
+            - uses: actions/checkout@v2
+            - name: Instrumentation tests
+              uses: reactivecircus/android-emulator-runner@v2
+              with:
+                  api-level: ${{ matrix.api-level }}
+                  arch: x86
+                  script: ./gradlew connectedDebugAndroidTest
