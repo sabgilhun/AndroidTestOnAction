@@ -8,8 +8,7 @@ jobs:
     runs-on: macos-latest
     strategy:
       matrix:
-        api-level: [21, 23, 29, 30]
-        target: [default, google_apis]
+        api-level: [23, 24, 25, 26, 27, 28, 29, 30]
     steps:
     - name: checkout
       uses: actions/checkout@v2
@@ -18,5 +17,5 @@ jobs:
       uses: reactivecircus/android-emulator-runner@v2
       with:
         api-level: ${{ matrix.api-level }}
-        target: ${{ matrix.target }}
+        target: default
         script: ./gradlew connectedDebugAndroidTest
